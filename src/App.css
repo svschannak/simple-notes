@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+}
+
+input:focus{
+outline-width: 0;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.RichEditor-root{
+    font-size: 1.2em;
+    line-height: 0.3em;
+}
+
+.md-block-todo input[type=checkbox]{
+  top: -7px;
+  left: -2px;
+}
