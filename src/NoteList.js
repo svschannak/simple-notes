@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
+import NoteListPoint from './NoteListPoint';
 
-export default class LikeButton extends Component {
-  constructor() {
-    super();
-    this.editor = {
-      content: "Testinhalt"
-    }
+export default class NoteList extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      liked: false
+      noteList: [
+        {
+          'id': 1,
+          'subject': 'Note1',
+          'content': 'Testinhalt'
+        },
+        {
+          'id': 2,
+          'subject': 'Note2',
+          'content': 'Testinhalt'
+        }
+      ]
     };
-    this.handleClick = this.handleClick.bind(this);
-  }
-  handleClick() {
-    this.setState({liked: !this.state.liked});
-  }
+  };
+
   render() {
     return (
-      <textarea>
-      {this.editor.content}
-      </textarea>
+      <ul>
+      {this.state.noteList.map(function(listValue){
+        return <NoteListPoint note={listValue} key={listValue.id} />;
+      })}
+      </ul>
     );
   }
 }

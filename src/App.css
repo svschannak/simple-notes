@@ -1,5 +1,12 @@
+body{
+  font-family: 'Scope One', serif;
+}
+
 .App {
   text-align: center;
+}
+ul{
+  padding-left: 0px;
 }
 
 input:focus{
@@ -31,6 +38,7 @@ outline-width: 0;
 .RichEditor-root{
     font-size: 1.2em;
     line-height: 0.3em;
+    font-family: 'Scope One', serif;
 }
 
 .md-block-todo input[type=checkbox]{
