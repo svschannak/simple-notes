@@ -3,6 +3,15 @@ import NoteListPointSubject from './NoteListPointSubject';
 import NoteListPointContent from './NoteListPointContent';
 
 export default class NoteListPoint extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  handleClick(){
+    this.props.switchEditorNote(this.props.note.subject, this.props.note.content);
+  };
+
   render() {
 
     var styleMap = {
@@ -17,7 +26,7 @@ export default class NoteListPoint extends Component {
     }
 
     return (
-      <li style={styleMap}>
+      <li style={styleMap} onClick={this.handleClick.bind(this)} className="list-point">
         <NoteListPointSubject subject={this.props.note.subject} />
         <NoteListPointContent content={this.props.note.content} />
 

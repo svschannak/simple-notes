@@ -29,11 +29,6 @@ outline-width: 0;
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 
 .RichEditor-root{
     font-size: 1.2em;
@@ -44,4 +39,11 @@ outline-width: 0;
 .md-block-todo input[type=checkbox]{
   top: -7px;
   left: -2px;
+}
+
+.list-point{
+  cursor: pointer;
+}
+.md-editor-toolbar{
+  padding:10px;
 }

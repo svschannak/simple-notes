@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 
 export default class SubjectComponent extends Component {
+
+  constructor(){
+    super();
+  };
+
+  handleChange(value){
+    console.log(value);
+  }
+
   render() {
 
     var styleMap = {
@@ -11,9 +20,8 @@ export default class SubjectComponent extends Component {
       'width': "100%",
       'fontFamily': "'Scope One', serif"
     }
-
     return (
-      <input type="text" style={styleMap} placeholder="Subject of Note" />
+      <input type="text" style={styleMap} placeholder="Subject of Note" value={this.props.subject} onChange={this.handleChange} />
     );
   }
 }
