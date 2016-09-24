@@ -9,11 +9,10 @@ export default class NoteListPoint extends Component {
   }
 
   handleClick(){
-    this.props.switchEditorNote(this.props.note.subject, this.props.note.content);
+    this.props.switchEditorNote(this.props.note.subject, this.props.note.raw_content);
   };
 
   render() {
-
     var styleMap = {
       'listStyle': 'none'
     }
@@ -25,10 +24,12 @@ export default class NoteListPoint extends Component {
       'marginBottom': '10px'
     }
 
+    console.log(this.props)
+
     return (
       <li style={styleMap} onClick={this.handleClick.bind(this)} className="list-point">
         <NoteListPointSubject subject={this.props.note.subject} />
-        <NoteListPointContent content={this.props.note.content} />
+        <NoteListPointContent content={this.props.note.plain_content} />
 
         <div style={dividerStyle}></div>
       </li>

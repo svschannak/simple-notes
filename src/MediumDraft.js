@@ -66,15 +66,13 @@ const handleBeforeInput = (editorState, str, onChange) => {
 export default class MediumEditor extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.current_text);
     this.state = {
-      editorState: createEditorState({"entityMap":{},"blocks":[{"key":"95g31","text":"ffdff","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}),
+      editorState: createEditorState(this.props.current_content),
       editorEnabled: true,
       placeholder: 'Write your story...',
     };
 
     this.onChange = (editorState, callback = null) => {
-      console.log(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())));
       if (this.state.editorEnabled) {
         this.setState({ editorState }, () => {
           if (callback) {
@@ -82,6 +80,13 @@ export default class MediumEditor extends React.Component {
           }
         });
       }
+      let plain_text = this.state.editorState.getCurrentContent().getPlainText();
+      let editor_data = convertToRaw(this.state.editorState.getCurrentContent());
+      let raw_content = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
+      if(JSON.stringify(this.origin_content) != JSON.stringify(editor_data)){
+        this.props.save_new_content(raw_content, plain_text);
+      }
+
     };
 
     this.logData = this.logData.bind(this);
