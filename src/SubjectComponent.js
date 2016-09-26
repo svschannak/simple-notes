@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 export default class SubjectComponent extends Component {
-
   constructor(){
     super();
   };
 
-  handleChange(value){
-    console.log(value);
-  }
+  handleChange(event){
+    console.log(event.target.value);
+    this.props.editSubject(event.target.value);
+  };
 
   render() {
 
@@ -21,7 +21,7 @@ export default class SubjectComponent extends Component {
       'fontFamily': "'Scope One', serif"
     }
     return (
-      <input type="text" style={styleMap} placeholder="Subject of Note" value={this.props.subject} onChange={this.handleChange} />
+      <input type="text" style={styleMap} placeholder="New Note" value={this.props.subject} onChange={this.handleChange.bind(this)} />
     );
   }
 }

@@ -67,12 +67,13 @@ export default class MediumEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: createEditorState(this.props.current_content),
+      editorState: createEditorState(),
       editorEnabled: true,
-      placeholder: 'Write your story...',
+      placeholder: 'Write your note...',
     };
 
     this.onChange = (editorState, callback = null) => {
+
       if (this.state.editorEnabled) {
         this.setState({ editorState }, () => {
           if (callback) {
@@ -80,10 +81,13 @@ export default class MediumEditor extends React.Component {
           }
         });
       }
+
       let plain_text = this.state.editorState.getCurrentContent().getPlainText();
       let editor_data = convertToRaw(this.state.editorState.getCurrentContent());
       let raw_content = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
-      if(JSON.stringify(this.origin_content) != JSON.stringify(editor_data)){
+
+      //check if content has changed and content is not empty
+      if(JSON.stringify(this.origin_content) != JSON.stringify(editor_data) && plain_text != ''){
         this.props.save_new_content(raw_content, plain_text);
       }
 
@@ -97,6 +101,7 @@ export default class MediumEditor extends React.Component {
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.handleDroppedFiles = this.handleDroppedFiles.bind(this);
     this.handleReturn = this.handleReturn.bind(this);
+    
   }
 
   componentDidMount() {
@@ -140,27 +145,8 @@ export default class MediumEditor extends React.Component {
     return false;
   }
 
-  fetchData() {
-    const req = new XMLHttpRequest();
-    req.open('GET', 'data.json', true);
-    req.onreadystatechange = () => {
-      if (req.readyState === 4) {
-        const data = JSON.parse(req.responseText);
-        this.setState({
-          editorState: createEditorState(data),
-          placeholder: 'Write your story...'
-        }, () => {
-          this.refs.editor.focus();
-        });
-      }
-    };
-    req.send();
-  }
-
   logData(e) {
     window.es = this.state.editorState;
-    console.log(convertToRaw(this.state.editorState.getCurrentContent()));
-    console.log(this.state.editorState.getSelection().toJS());
   }
 
   loadSavedData() {
@@ -175,6 +161,12 @@ export default class MediumEditor extends React.Component {
     } catch(e) {
       console.log(e);
     }
+  }
+
+  componentWillReceiveProps(newProps){
+    this.setState({
+      editorState: createEditorState(newProps.current_content),
+    })
   }
 
   toggleEdit(e) {

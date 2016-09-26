@@ -18,7 +18,7 @@ export default class NoteList extends React.Component {
     this.firebaseRef.on("child_added", function(dataSnapshot) {
       this.notes.push({
         'id': dataSnapshot.key(),
-        'subject': 'Note',
+        'subject': dataSnapshot.val().subject,
         'plain_content': dataSnapshot.val().plain_content,
         'raw_content': dataSnapshot.val().content
       });
@@ -28,9 +28,10 @@ export default class NoteList extends React.Component {
     }.bind(this));
   }
 
-  switchEditorNote(subject, content){
+  switchEditorNote(subject, content, key){
     this.props.changeSubject(subject);
     this.props.changeEditorContent(content);
+    this.props.changeNoteId(key);
   }
 
   render() {

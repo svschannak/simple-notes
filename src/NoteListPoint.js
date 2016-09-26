@@ -9,7 +9,7 @@ export default class NoteListPoint extends Component {
   }
 
   handleClick(){
-    this.props.switchEditorNote(this.props.note.subject, this.props.note.raw_content);
+    this.props.switchEditorNote(this.props.note.subject, this.props.note.raw_content, this.props.note.id);
   };
 
   render() {
@@ -23,8 +23,6 @@ export default class NoteListPoint extends Component {
       'margin': 'auto',
       'marginBottom': '10px'
     }
-
-    console.log(this.props)
 
     return (
       <li style={styleMap} onClick={this.handleClick.bind(this)} className="list-point">
