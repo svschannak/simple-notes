@@ -13,7 +13,7 @@ export default class NoteList extends React.Component {
 
   api_update_note_list(notes, dataSnapshot){
     notes.push({
-      'id': dataSnapshot.key(),
+      'id': dataSnapshot.key,
       'subject': dataSnapshot.val().subject,
       'plain_content': dataSnapshot.val().plain_content,
       'raw_content': dataSnapshot.val().content,
@@ -23,9 +23,7 @@ export default class NoteList extends React.Component {
 
   componentWillMount() {
     var notes = [];
-
-    this.firebaseRef = new Firebase("https://simply-notes.firebaseio.com/");
-    this.firebaseRef.on("child_added", function(dataSnapshot) {
+    this.props.firebaseApp.database().ref('notes/' + this.props.currentUser + "/").on("child_added", function(dataSnapshot) {
       this.api_update_note_list(notes, dataSnapshot);
 
       this.setState({
@@ -34,8 +32,8 @@ export default class NoteList extends React.Component {
 
     }.bind(this));
 
-    this.firebaseRef.on('child_removed', function(data) {
-      let key = data.key();
+    this.props.firebaseApp.database().ref('notes/' + this.props.currentUser + "/").on('child_removed', function(data) {
+      let key = data.key;
 
       //TODO: Should be refactored, works, but it's not that nice
       this.state.noteList.forEach(function(value, idx){
@@ -46,8 +44,8 @@ export default class NoteList extends React.Component {
 
     }.bind(this));
 
-    this.firebaseRef.on('child_changed', function(data) {
-      let key = data.key();
+    this.props.firebaseApp.database().ref('notes/' + this.props.currentUser + "/").on('child_changed', function(data) {
+      let key = data.key;
       let copy_state = this.state.noteList;
 
       //TODO: Should be refactored
@@ -71,7 +69,7 @@ export default class NoteList extends React.Component {
     this.props.changeSubject(subject);
     this.props.changeEditorContent(content);
     this.props.changeNoteId(key);
-    this.props.changeTags(tags);
+    this.props.changeTags(tags,false);
   }
 
   render() {
