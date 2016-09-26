@@ -3,6 +3,7 @@ import ReactDOM  from 'react-dom'
 import MediumEditor from './MediumDraft'
 import SubjectComponent from './SubjectComponent'
 import NoteList from './NoteList'
+import TagComponent from './TagComponent'
 import './App.css'
 import logo  from './logo.svg'
 
@@ -14,7 +15,8 @@ export default class App extends Component {
       app_name: "Simple Notes",
       current_subject: '',
       current_content: null,
-      current_key: ''
+      current_key: '',
+      current_tags: ''
     }
 
     this.state = this.default_state
@@ -23,14 +25,23 @@ export default class App extends Component {
   };
 
   new_note() {
-    this.setState(this.default_state)
+    this.setState(this.default_state);
   }
 
-  api_create_new_note(editor_data, plain_text){
+  remove_note() {
+    this.setState(this.default_state);
+    this.api_remove_note();
+  }
+
+  api_create_new_note(editor_data, plain_text, subject){
+    if(!subject){
+      subject = this.state.current_subject
+    }
     var result = this.firebaseRef.push({
-      subject: this.state.current_subject,
+      subject: subject,
       content: editor_data,
-      plain_content: plain_text
+      plain_content: plain_text,
+      tags: this.state.current_tags
     });
 
     this.setState({
@@ -44,8 +55,17 @@ export default class App extends Component {
   }
 
   api_update_subject(subject){
+    if(!subject){
+      subject = this.state.current_subject
+    }
     this.api_update_current_note({
-      subject: this.state.current_subject
+      subject: subject
+    });
+  }
+
+  api_update_tags(subject){
+    this.api_update_current_note({
+      tags: this.state.current_tags
     });
   }
 
@@ -56,6 +76,11 @@ export default class App extends Component {
     });
   };
 
+  api_remove_note(){
+    let firebase = new Firebase("https://simply-notes.firebaseio.com/" + this.state.current_key);
+    firebase.remove();
+  }
+
   change_current_subject(new_subject){
     this.setState({
       current_subject: new_subject
@@ -64,12 +89,14 @@ export default class App extends Component {
   };
 
   edit_current_subject(subject){
+    // TODO: Refactor this with callbacks for setState
     this.change_current_subject(subject);
+
     if(this.state.current_key==''){
-      this.api_create_new_note(null, null);
+      this.api_create_new_note(null, null, subject);
       console.log('new note');
     }else{
-      this.api_update_subject();
+      this.api_update_subject(subject);
       console.log('update note');
     }
   };
@@ -104,12 +131,20 @@ export default class App extends Component {
     })
   }
 
+  edit_tags(tags){
+    this.setState({
+      current_tags: tags
+    }, function(){
+      this.api_update_tags(tags);
+    });
+  }
+
   render () {
     return (
       <div className="row">
         <div className="col-md-2">
           <div className="App-name">{this.state.app_name}</div>
-          <NoteList changeSubject={this.change_current_subject.bind(this)} changeEditorContent={this.change_editor_content.bind(this)} changeNoteId={this.change_current_id.bind(this)} />
+          <NoteList changeSubject={this.change_current_subject.bind(this)} changeTags={this.edit_tags.bind(this)} changeEditorContent={this.change_editor_content.bind(this)} changeNoteId={this.change_current_id.bind(this)} />
         </div>
         <div className="col-md-8">
           <SubjectComponent subject={this.state.current_subject} changeSubject={this.change_current_subject.bind(this)} editSubject={this.edit_current_subject.bind(this)} />
@@ -117,9 +152,10 @@ export default class App extends Component {
         </div>
         <div className="col-md-2 option-sidebar">
           <button className="btn" onClick={this.new_note.bind(this)}>New Note</button>
+          <button className="btn" onClick={this.remove_note.bind(this)}>Remove Note</button>
           <br/>
           <br/>
-          <input className="form-control" type="text" placeholder="Tags..." />
+          <TagComponent tags={this.state.current_tags} editTags={this.edit_tags.bind(this)} />
         </div>
       </div>
     )

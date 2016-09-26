@@ -9,7 +9,7 @@ export default class NoteListPoint extends Component {
   }
 
   handleClick(){
-    this.props.switchEditorNote(this.props.note.subject, this.props.note.raw_content, this.props.note.id);
+    this.props.switchEditorNote(this.props.note.subject, this.props.note.raw_content, this.props.note.id, this.props.note.tags);
   };
 
   render() {
