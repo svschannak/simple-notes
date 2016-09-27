@@ -29,15 +29,13 @@ export default class App extends Component {
   componentWillMount() {
 
     this.state.firebaseApp.auth().onAuthStateChanged(function(user) {
-      if (user) {
-
-        var user = this.state.firebaseApp.auth().currentUser;
-
+      if (user){
         this.setState({
           isLoggedIn: true,
           currentUser: user.uid
-        })
-      } else {
+        });
+      }
+      else if (!user) {
         this.setState({
           isLoggedIn: false,
           currentUser: ''
@@ -51,15 +49,17 @@ export default class App extends Component {
     var user = this.state.firebaseApp.auth().currentUser;
     if (user) {
       // User is signed in.
+
       this.setState({
+        isLoggedIn: true,
         currentUser: user.uid
-      })
-      console.log(user.uid);
+      });
     } else {
       // No user is signed in.
       setTimeout(function(){ this.getUserData(); }.bind(this), 1000);
 
     }
+    console.log(this.state)
   }
 
   componentDidMount(){
@@ -67,13 +67,21 @@ export default class App extends Component {
   }
 
   render () {
-    if(this.state.isLoggedIn){
+    if(this.state.isLoggedIn && this.state.currentUser != ''){
       return (
         <MainEditor firebaseApp={this.state.firebaseApp} currentUser={this.state.currentUser} />
       )
-    }else if(!this.state.isLoggedIn){
+    }
+    else if(!this.state.isLoggedIn){
       return (
         <LoginComponent firebaseApp={this.state.firebaseApp} currentUser={this.state.currentUser} />
+      )
+    }else{
+      return(
+        <div className="spinner">
+          <div className="double-bounce1"></div>
+          <div className="double-bounce2"></div>
+        </div>
       )
     }
   }

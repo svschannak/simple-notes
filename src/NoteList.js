@@ -23,9 +23,10 @@ export default class NoteList extends React.Component {
 
   componentWillMount() {
     var notes = [];
+    console.log(this.props.currentUser);
     this.props.firebaseApp.database().ref('notes/' + this.props.currentUser + "/").on("child_added", function(dataSnapshot) {
       this.api_update_note_list(notes, dataSnapshot);
-
+      console.log(notes);
       this.setState({
         noteList: notes
       });

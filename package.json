@@ -9,6 +9,7 @@
     "draft-js": "^0.8.1",
     "firebase": "^3.4.0",
     "fs": "0.0.1-security",
+    "medium-draft": "^0.3.9",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
