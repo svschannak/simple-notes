@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NoteListPointSubject from './NoteListPointSubject';
 import NoteListPointContent from './NoteListPointContent';
+import NoteListPointTags from './NoteListPointTags';
 
 export default class NoteListPoint extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class NoteListPoint extends Component {
     return (
       <li style={styleMap} onClick={this.handleClick.bind(this)} className="list-point">
         <NoteListPointSubject subject={this.props.note.subject} />
+        <NoteListPointTags tags={this.props.note.tags} />
         <NoteListPointContent content={this.props.note.plain_content} />
 
         <div style={dividerStyle}></div>
