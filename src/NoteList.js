@@ -12,7 +12,7 @@ export default class NoteList extends React.Component {
   };
 
   api_update_note_list(notes, dataSnapshot){
-    notes.push({
+    notes.unshift({
       'id': dataSnapshot.key,
       'subject': dataSnapshot.val().subject,
       'plain_content': dataSnapshot.val().plain_content,
