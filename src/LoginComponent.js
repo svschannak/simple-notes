@@ -42,19 +42,19 @@ export default class LoginComponent extends Component {
       <div>
         <div className="container" style={stylePanel}>
           <div className="col-md-4 col-md-offset-4">
-            <div className="panel panel-default">
+            <div className="panel panel-default login-panel">
               <div className="panel-heading"><h3 className="panel-title"><strong>Sign in </strong></h3></div>
               <div className="panel-body">
               <form>
                 <div className="input-group" style={styleInput}>
                     <span className="input-group-addon"><i className="glyphicon glyphicon-envelope"></i></span>
-                    <input type="text" className="form-control" name="username" value={this.state.email} placeholder="email" onChange={this.handleEmailChange.bind(this)} />
+                    <input type="text" className="form-control login-input" name="username" value={this.state.email} placeholder="email" onChange={this.handleEmailChange.bind(this)} />
                 </div>
                 <div className="input-group" style={styleInput}>
                     <span className="input-group-addon"><i className="glyphicon glyphicon-asterisk"></i></span>
-                    <input type="password" className="form-control" name="password" value={this.state.password} placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
+                    <input type="password" className="form-control login-input" name="password" value={this.state.password} placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
                 </div>
-                <button className="btn btn-block" onClick={this.handleClick.bind(this)}>Login</button>
+                <button className="btn btn-block control-btn" onClick={this.handleClick.bind(this)}>Login</button>
                 </form>
               </div>
             </div>
