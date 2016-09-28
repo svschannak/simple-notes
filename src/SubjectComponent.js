@@ -14,9 +14,10 @@ export default class SubjectComponent extends Component {
 
     var styleMap = {
       'padding': '15px 30px',
-      'border': 'none',
+      'border': '2px solid black',
       'fontSize': '1.6em',
-      'marginBottom': '0',
+      'marginBottom': '10px',
+      'marginTop': '10px',
       'width': "100%",
       'fontFamily': "'Scope One', serif"
     }

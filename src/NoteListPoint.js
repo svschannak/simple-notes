@@ -14,22 +14,16 @@ export default class NoteListPoint extends Component {
 
   render() {
     var styleMap = {
-      'listStyle': 'none'
-    }
-
-    var dividerStyle = {
-      'borderBottom': '1px solid #ECECEC',
-      'width': '95%',
-      'margin': 'auto',
-      'marginBottom': '10px'
+      'listStyle': 'none',
+      'border': '2px solid #000',
+      'marginTop': '10px',
+      'padding': '10px'
     }
 
     return (
-      <li style={styleMap} onClick={this.handleClick.bind(this)} className="list-point">
+      <li style={styleMap} className="note-list-point" onClick={this.handleClick.bind(this)} className="list-point">
         <NoteListPointSubject subject={this.props.note.subject} />
         <NoteListPointContent content={this.props.note.plain_content} />
-
-        <div style={dividerStyle}></div>
       </li>
     );
   }

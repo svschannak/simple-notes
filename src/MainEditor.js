@@ -12,7 +12,7 @@ export default class MainEditor extends Component {
     super();
 
     this.default_state = {
-      app_name: "Simple Notes",
+      app_name: "Notizn",
       current_subject: '',
       current_content: null,
       current_key: '',
