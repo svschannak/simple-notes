@@ -155,14 +155,13 @@ export default class MainEditor extends Component {
           <MediumEditor current_content={this.state.current_content} save_new_content={this.save_new_content.bind(this)} />
         </div>
         <div className="col-md-2 option-sidebar">
-          <button className="btn" onClick={this.new_note.bind(this)}>New Note</button>
-          <button className="btn" onClick={this.remove_note.bind(this)}>Remove Note</button>
-          <br/>
+          <button className="btn control-btn btn-block" onClick={this.new_note.bind(this)}>New Note</button>
+          <button className="btn control-btn btn-block" onClick={this.remove_note.bind(this)}>Remove Note</button>
           <br/>
           <TagComponent tags={this.state.current_tags} editTags={this.edit_tags.bind(this)} />
           <br/>
           <br/>
-          <button className="btn" onClick={this.handleLogout.bind(this)}>Logout</button>
+          <button className="btn control-btn btn-block" onClick={this.handleLogout.bind(this)}>Logout</button>
         </div>
       </div>
     )
